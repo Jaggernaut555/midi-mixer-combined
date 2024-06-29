@@ -1,0 +1,80 @@
+{
+  "$schema": "./node_modules/midi-mixer-plugin/plugin.schema.json",
+  "version": "1.0.0",
+  "id": "ca.jaggernaut.midi-mixer.combined",
+  "name": "Combined",
+  "main": "lib/index.js",
+  "type": "node",
+  "icon": "J.ico",
+  "settings": {
+    "brightnessLabel": {
+      "label": "Brightness Settings",
+      "type": "status"
+    },
+    "brightnessEnabled": {
+      "label": "Enable Brightness",
+      "type": "toggle",
+      "fallback": false
+    },
+    "brightnessStatus": {
+      "label": "Brightness Status",
+      "type": "status",
+      "fallback": "Not active"
+    },
+    "voiceMeeterLabel": {
+      "label": "Voicemeeter Settings",
+      "type": "status"
+    },
+    "voicemeeterEnabled": {
+      "label": "Enable Voicemeeter",
+      "type": "toggle",
+      "fallback": false
+    },
+    "notes": {
+      "label": "Note",
+      "type": "status",
+      "fallback": "Reload plugin after changing any of these settings. Check the info tab for explanations of the customization options."
+    },
+    "maxdb": {
+      "label": "Max db",
+      "type": "slider",
+      "fallback": 12,
+      "min": -60,
+      "max": 12
+    },
+    "mindb": {
+      "label": "Min db",
+      "type": "slider",
+      "fallback": -60,
+      "min": -60,
+      "max": 12
+    },
+    "customStripAssign": {
+      "label": "Custom Strip Assign",
+      "type": "text"
+    },
+    "customStripMute": {
+      "label": "Custom Strip Mute",
+      "type": "text"
+    },
+    "customStripRun": {
+      "label": "Custom Strip Run",
+      "type": "text"
+    },
+    "BusToggles": {
+      "label": "Custom Bus Toggle Buttons",
+      "type": "text",
+      "fallback": "strip0:A1,!B2;strip1:A1"
+    },
+    "vmstatus": {
+      "label": "Voicemeeter Status",
+      "type": "status",
+      "fallback": "Not connected"
+    },
+    "runbutton": {
+      "label": "run",
+      "type": "button"
+    }
+  },
+  "author": "Jaggernaut"
+}
