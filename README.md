@@ -1,13 +1,13 @@
 This is a combination of some plugins I've written. Enable each on the settings page.
 
+## Installing
+To install without compiling from source, download the [.midiMixerPlugin from the latest release](https://github.com/Jaggernaut555/midi-mixer-combined/releases) and double click the file.
+
 # Midi Mixer Brightness Plugin
 
 A plugin to modify the brightness of your monitors with Midi Mixer.
 
 Monitors not supported by ddc/ci may be able to be controlled by the assignments with `WMI` in the name.
-
-## Installing
-To install without compiling from source, download the [.midiMixerPlugin from the latest release](https://github.com/Jaggernaut555/midi-mixer-brightness/releases) and double click the file.
 
 This package uses:
 - [midi-mixer-plugin](https://github.com/midi-mixer/midi-mixer-plugin)
@@ -20,7 +20,6 @@ Control Voicemeeter Strips and Buses via midi-mixer. Works with Voicemeeter, Voi
 
 
 ## Installing
-To install without compiling from source, download the [.midiMixerPlugin from the latest release](https://github.com/Jaggernaut555/midi-mixer-voicemeeter/releases) and double click the file.
 
 If you've previously set up loopMIDI or similar software to pass midi commands through to Voicemeeter check that they are not conflicting with the fader/knob assignments used by the plugin.
 
