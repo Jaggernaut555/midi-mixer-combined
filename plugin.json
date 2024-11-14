@@ -80,6 +80,40 @@
     "runbutton": {
       "label": "run",
       "type": "button"
+    },
+    "OBSLabel": {
+      "label": "OBS Settings",
+      "type": "status"
+    },
+    "OBSEnabled": {
+      "label": "Enable OBS",
+      "type": "toggle",
+      "fallback": false
+    },
+    "OBSaddress": {
+      "label": "OBS WebSocket Address",
+      "required": false,
+      "type": "text",
+      "fallback": "ws://localhost:4455"
+    },
+    "OBSpassword": {
+      "label": "OBS WebSocket Password",
+      "required": false,
+      "type": "password"
+    },
+    "OBSstatus": {
+      "label": "Status",
+      "type": "status",
+      "fallback": "Disconnected"
+    },
+    "OBSreconnect": {
+      "label": "Reconnect",
+      "type": "button"
+    },
+    "OBSmeterMultiplier": {
+      "label": "Meter Scaling Multiplier",
+      "type": "text",
+      "fallback": "1"
     }
   }
 }

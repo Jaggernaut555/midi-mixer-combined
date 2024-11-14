@@ -37,14 +37,18 @@
     "@hensm/ddcci": "^0.1.0",
     "midi-mixer-plugin": "^1.0.2",
     "node-powershell": "^5.0.1",
-    "ts-easy-voicemeeter-remote": "^2.0.1"
+    "ts-easy-voicemeeter-remote": "^2.0.1",
+    "obs-websocket-js": "5.0.1",
+    "ws": "8.4.0"
   },
   "bundledDependencies": [
     "midi-mixer-plugin",
     "@hensm/ddcci",
     "node-powershell",
     "midi-mixer-plugin",
-    "ts-easy-voicemeeter-remote"
+    "ts-easy-voicemeeter-remote",
+    "obs-websocket-js",
+    "ws"
   ],
   "repository": {
     "type": "git",
