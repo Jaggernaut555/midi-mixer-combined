@@ -16,14 +16,11 @@ async function init(): Promise<void> {
     enableVoicemeeter: config["voicemeeterEnabled"] ?? false,
   };
 
-  console.log(settings);
-  console.log(config);
-
   if (settings.enableBrightness) {
-    initBrightnessPlugin();
+    await initBrightnessPlugin();
   }
   if (settings.enableVoicemeeter){
-    initVoicemeeterPlugin();
+    await initVoicemeeterPlugin();
   }
 }
 

@@ -1,10 +1,11 @@
 {
   "$schema": "./node_modules/midi-mixer-plugin/plugin.schema.json",
-  "version": "1.0.0",
   "id": "ca.jaggernaut.midi-mixer.combined",
   "name": "Combined",
-  "main": "lib/index.js",
   "type": "node",
+  "version": "1.1.0",
+  "author": "Jaggernaut",
+  "main": "lib/index.js",
   "icon": "J.ico",
   "settings": {
     "brightnessLabel": {
@@ -61,6 +62,11 @@
       "label": "Custom Strip Run",
       "type": "text"
     },
+    "enableStripLimits": {
+      "label": "Enable Strip Limiter Groups",
+      "type": "toggle",
+      "fallback": false
+    },
     "BusToggles": {
       "label": "Custom Bus Toggle Buttons",
       "type": "text",
@@ -75,6 +81,5 @@
       "label": "run",
       "type": "button"
     }
-  },
-  "author": "Jaggernaut"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ca.jaggernaut.midi-mixer.combined",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "A combination of plugins for MIDI Mixer.",
   "files": [
@@ -49,12 +49,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Jaggernaut555/midi-mixer-combined.git"
-  },
-  "bundleDependencies": [
-    "midi-mixer-plugin",
-    "@hensm/ddcci",
-    "node-powershell",
-    "midi-mixer-plugin",
-    "ts-easy-voicemeeter-remote"
-  ]
+  }
 }
