@@ -16,7 +16,6 @@ const Controller = require("./Controller");
 // Added for combined plugin
 var cont;
 async function InitWaveLinkPlugin() {
-  console.log("running controller");
   cont = new Controller();
 }
 
