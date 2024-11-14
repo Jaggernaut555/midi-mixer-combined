@@ -1,11 +1,13 @@
 import { initBrightnessPlugin } from "./Brightness";
 import { InitOBSPlugin } from "./OBS";
 import { initVoicemeeterPlugin } from "./Voicemeeter";
+import * as wavelink from "./WaveLink";
 
 interface Settings {
   enableBrightness: boolean;
   enableVoicemeeter: boolean;
   enableOBS: boolean;
+  enableWaveLink: boolean;
 }
 
 let settings: Settings;
@@ -17,6 +19,7 @@ async function init(): Promise<void> {
     enableBrightness: config["brightnessEnabled"] ?? false,
     enableVoicemeeter: config["voicemeeterEnabled"] ?? false,
     enableOBS: config["OBSEnabled"] ?? false,
+    enableWaveLink: config["WaveLinkEnabled"] ?? false,
   };
 
   if (settings.enableBrightness) {
@@ -30,6 +33,10 @@ async function init(): Promise<void> {
   if (settings.enableOBS){
     console.log("Running OBS plugin");
     await InitOBSPlugin();
+  }
+  if (settings.enableWaveLink){
+    console.log("Running Wave Link plugin");
+    await wavelink.InitWaveLinkPlugin();
   }
 }
 

@@ -39,7 +39,7 @@
     "node-powershell": "^5.0.1",
     "ts-easy-voicemeeter-remote": "^2.0.1",
     "obs-websocket-js": "5.0.1",
-    "ws": "8.4.0"
+    "ws": "8.11.0"
   },
   "bundledDependencies": [
     "midi-mixer-plugin",
