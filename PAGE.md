@@ -11,3 +11,5 @@ This is a combination of some plugins I've written. Enable each on the settings 
 [WaveLink](https://github.com/fu-raz/midi-mixer-wavelink-new)
 
 [PushToTalk](https://github.com/Jaggernaut555/midi-mixer-push-to-talk)
+
+[Spotify](https://github.com/Jaggernaut555/midi-mixer-spotify/)

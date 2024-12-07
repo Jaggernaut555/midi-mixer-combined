@@ -10,3 +10,4 @@ To install without compiling from source, download the [.midiMixerPlugin from th
 [OBS](https://github.com/Jaggernaut555/plugin-obs)
 [WaveLink](https://github.com/fu-raz/midi-mixer-wavelink-new)
 [PushToTalk](https://github.com/Jaggernaut555/midi-mixer-push-to-talk)
+[Spotify](https://github.com/Jaggernaut555/midi-mixer-spotify/)

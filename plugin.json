@@ -260,6 +260,46 @@
       "label": "Mouse Movement based on turn speed",
       "type": "toggle",
       "fallback": false
+    },
+    "SpotifyLabel": {
+      "label": "Spotify Settings",
+      "type": "status"
+    },
+    "SpotifyEnabled": {
+      "label": "Enable Spotify",
+      "type": "toggle",
+      "fallback": false
+    },
+    "SpotifyClientID": {
+      "label": "Client ID",
+      "required": true,
+      "type": "text",
+      "fallback": "None"
+    },
+    "SpotifyClientSecret": {
+      "label": "Client Secret",
+      "required": true,
+      "type": "password",
+      "fallback": "None"
+    },
+    "SpotifyAccessToken": {
+      "label": "Access Token",
+      "type": "password",
+      "fallback": "None"
+    },
+    "SpotifyRefreshToken": {
+      "label": "Refresh Token",
+      "type": "password",
+      "fallback": "None"
+    },
+    "SpotifyExpressStatus": {
+      "label": "Express server status",
+      "type": "status",
+      "fallback": "Not Running"
+    },
+    "SpotifyRunLogin": {
+      "label": "Run Login Server",
+      "type": "button"
     }
   }
 }

@@ -1,6 +1,7 @@
 import { initBrightnessPlugin } from "./Brightness";
 import { InitOBSPlugin } from "./OBS";
 import { initPushToTalk } from "./PushToTalk";
+import { initSpotifyPlugin } from "./Spotify";
 import { initVoicemeeterPlugin } from "./Voicemeeter";
 import * as wavelink from "./WaveLink";
 
@@ -10,6 +11,7 @@ interface Settings {
   enableOBS: boolean;
   enableWaveLink: boolean;
   enablePushToTalk: boolean;
+  enableSpotify: boolean;
 }
 
 let settings: Settings;
@@ -23,6 +25,7 @@ async function init(): Promise<void> {
     enableOBS: config["OBSEnabled"] ?? false,
     enableWaveLink: config["WaveLinkEnabled"] ?? false,
     enablePushToTalk: config["PushToTalkEnabled"] ?? false,
+    enableSpotify: config["SpotifyEnabled"] ?? false,
   };
 
   if (settings.enableBrightness) {
@@ -44,6 +47,10 @@ async function init(): Promise<void> {
   if (settings.enablePushToTalk){
     console.log("Running Push To Talk plugin");
     await initPushToTalk();
+  }
+  if (settings.enablePushToTalk){
+    console.log("Running Spotify plugin");
+    await initSpotifyPlugin();
   }
 }
 
