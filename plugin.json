@@ -3,7 +3,7 @@
   "id": "ca.jaggernaut.midi-mixer.combined",
   "name": "Combined",
   "type": "node",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Jaggernaut",
   "main": "lib/index.js",
   "icon": "J.ico",
@@ -226,6 +226,40 @@
     "outputDevice9Enabled": {
       "label": "Enable button and add to switch rotation",
       "type": "toggle"
+    },
+    "PushToTalkLabel": {
+      "label": "PushToTalk Settings",
+      "type": "status"
+    },
+    "PushToTalkEnabled": {
+      "label": "Enable PushToTalk",
+      "type": "toggle",
+      "fallback": false
+    },
+    "keycode": {
+      "label": "Keycode list. Re-activate plugin to update",
+      "type": "text",
+      "fallback": "17(ctrl)"
+    },
+    "wheelkeycodes": {
+      "label": "Wheel keycode list. Re-activate plugin to update",
+      "type": "text",
+      "fallback": "~37(left)[~40(down)]/~39(right)[~38(up)]"
+    },
+    "XinputEnable": {
+      "label": "Enable Xinput controller",
+      "type": "toggle",
+      "fallback": false
+    },
+    "mouseInputEnable": {
+      "label": "Enable mouse control",
+      "type": "toggle",
+      "fallback": false
+    },
+    "mouseInputRelative": {
+      "label": "Mouse Movement based on turn speed",
+      "type": "toggle",
+      "fallback": false
     }
   }
 }

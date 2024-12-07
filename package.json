@@ -1,6 +1,6 @@
 {
   "name": "ca.jaggernaut.midi-mixer.combined",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "A combination of plugins for MIDI Mixer.",
   "files": [
@@ -39,7 +39,12 @@
     "node-powershell": "^5.0.1",
     "ts-easy-voicemeeter-remote": "^2.0.1",
     "obs-websocket-js": "5.0.1",
-    "ws": "8.11.0"
+    "ws": "8.11.0",
+    "ffi-napi": "^4.0.3",
+    "keycode": "^2.2.1",
+    "keysender": "^2.2.0",
+    "ref-array-napi": "^1.2.2",
+    "vigemclient": "^1.4.1"
   },
   "bundledDependencies": [
     "midi-mixer-plugin",
@@ -48,7 +53,12 @@
     "midi-mixer-plugin",
     "ts-easy-voicemeeter-remote",
     "obs-websocket-js",
-    "ws"
+    "ws",
+    "ffi-napi",
+    "ref-array-napi",
+    "keycode",
+    "vigemclient",
+    "keysender"
   ],
   "repository": {
     "type": "git",
