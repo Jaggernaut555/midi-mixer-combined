@@ -3,7 +3,7 @@
   "id": "ca.jaggernaut.midi-mixer.combined",
   "name": "Combined",
   "type": "node",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": "Jaggernaut",
   "main": "lib/index.js",
   "icon": "J.ico",
@@ -300,6 +300,31 @@
     "SpotifyRunLogin": {
       "label": "Run Login Server",
       "type": "button"
+    },
+    "HueLabel": {
+      "label": "Hue Settings",
+      "type": "status"
+    },
+    "HueEnabled": {
+      "label": "Enable Hue",
+      "type": "toggle",
+      "fallback": false
+    },
+    "hueip": {
+      "label": "Hue Bridge IP / Address",
+      "required": true,
+      "type": "text"
+    },
+    "hueuser": {
+      "label": "Hue Bridge User",
+      "required": true,
+      "type": "password"
+    },
+    "synctime": {
+      "label": "Sync interval (seconds)",
+      "required": false,
+      "type": "text",
+      "fallback": "30"
     }
   }
 }
