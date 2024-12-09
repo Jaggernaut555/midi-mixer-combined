@@ -13,3 +13,5 @@ This is a combination of some plugins I've written. Enable each on the settings 
 [PushToTalk](https://github.com/Jaggernaut555/midi-mixer-push-to-talk)
 
 [Spotify](https://github.com/Jaggernaut555/midi-mixer-spotify/)
+
+[Hue](https://github.com/Jaggernaut555/plugin-hue)
