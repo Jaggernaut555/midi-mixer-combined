@@ -36,32 +36,32 @@ async function init(): Promise<void> {
     await initBrightnessPlugin();
     console.log("Running Brightness plugin");
   }
-  if (settings.enableVoicemeeter){
+  if (settings.enableVoicemeeter) {
     console.log("Initializing Voicemeeter plugin");
     await initVoicemeeterPlugin();
     console.log("Running Voicemeeter plugin");
   }
-  if (settings.enableOBS){
+  if (settings.enableOBS) {
     console.log("Initializing OBS plugin");
     await InitOBSPlugin();
     console.log("Running OBS plugin");
   }
-  if (settings.enableWaveLink){
+  if (settings.enableWaveLink) {
     console.log("Initializing Wave Link plugin");
     await wavelink.InitWaveLinkPlugin();
     console.log("Running Wave Link plugin");
   }
-  if (settings.enablePushToTalk){
+  if (settings.enablePushToTalk) {
     console.log("Initializing Push To Talk plugin");
     await initPushToTalk();
     console.log("Running Push To Talk plugin");
   }
-  if (settings.enableSpotify){
+  if (settings.enableSpotify) {
     console.log("Initializing Spotify plugin");
     await initSpotifyPlugin();
     console.log("Running Spotify plugin");
   }
-  if (settings.enableHue){
+  if (settings.enableHue) {
     console.log("Initializing Hue plugin");
     await initHuePlugin();
     console.log("Running Hue plugin");
