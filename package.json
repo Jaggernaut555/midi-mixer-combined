@@ -1,6 +1,6 @@
 {
   "name": "ca.jaggernaut.midi-mixer.combined",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "private": true,
   "description": "A combination of plugins for MIDI Mixer.",
   "files": [
