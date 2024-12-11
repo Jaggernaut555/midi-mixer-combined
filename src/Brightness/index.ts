@@ -3,18 +3,17 @@ import { refreshDdcciMonitorInfo } from "./ddcci";
 import { MonitorInfo, refreshMonitors } from "./util";
 import { refreshWmiMonitorInfo } from "./wmi";
 
-const monitors = new Map<string, MonitorInfo>();
+const monitors = new Map<string, MonitorInfo>()
 
-let refreshButton: ButtonType;
+const refreshButton: ButtonType = new ButtonType("Refresh Monitors", {
+  name: "Refresh Monitor List",
+  active: true,
+});
 
-export async function initBrightnessPlugin(): Promise<void> {
+refreshButton.on("pressed", () => {
   refreshMonitors(monitors);
-  refreshButton = new ButtonType("Refresh Monitors", {
-    name: "Refresh Monitor List",
-    active: true,
-  });
+});
 
-  refreshButton.on("pressed", () => {
-    refreshMonitors(monitors);
-  });
+export async function initBrightnessPlugin() {
+  refreshMonitors(monitors);
 }
