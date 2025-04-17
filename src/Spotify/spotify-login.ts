@@ -7,7 +7,7 @@ import { Strategy } from 'passport-spotify';
 let clientId = "";
 let clientSecret = "";
 const SESSION_SECRET = 'Not important here';
-const CALLBACK_URL = 'http://localhost:22025/auth/spotify/callback';
+const CALLBACK_URL = 'http://127.0.0.1:22025/auth/spotify/callback';
 
 let settings: Record<string, any>;
 
@@ -70,7 +70,7 @@ function initExpress() {
   );
 
   app.listen(port, () => {
-    console.log(`Spotify login server listening on port ${port}`)
+    console.log(`Spotify login server listening on port ${port}`);
     $MM.setSettingsStatus("SpotifyExpressStatus", "Running");
-  })
+  });
 }

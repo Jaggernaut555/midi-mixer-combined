@@ -1,6 +1,6 @@
 {
   "name": "ca.jaggernaut.midi-mixer.combined",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "private": true,
   "description": "A combination of plugins for MIDI Mixer.",
   "files": [
@@ -12,11 +12,10 @@
   ],
   "scripts": {
     "copy": "copyfiles --up 1 src/Spotify/views/* lib/",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "semantic-release": "semantic-release",
     "postversion": "npx ts-node scripts/bump-manifest.ts && midi-mixer pack",
-    "pack": "midi-mixer pack"
+    "pack": "npm run build && npm run copy && midi-mixer pack"
   },
   "license": "ISC",
   "devDependencies": {

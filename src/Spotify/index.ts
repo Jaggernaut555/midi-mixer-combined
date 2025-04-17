@@ -207,7 +207,7 @@ async function spotifyReq(f: (res: Response<SpotifyApi.CurrentPlaybackResponse>)
   }
 }
 
-export async function initSpotifyPlugin() {
+export async function initSpotifyPlugin(): Promise<void> {
   settings = await $MM.getSettings();
   clientId = settings["SpotifyClientID"];
   clientSecret = settings["SpotifyClientSecret"];
@@ -237,4 +237,4 @@ export async function initSpotifyPlugin() {
 
 $MM.onSettingsButtonPress("SpotifyRunLogin", () => {
   initLoginServer();
-})
+});
