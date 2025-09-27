@@ -3,7 +3,7 @@
   "id": "ca.jaggernaut.midi-mixer.combined",
   "name": "Combined",
   "type": "node",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "author": "Jaggernaut",
   "main": "lib/index.js",
   "icon": "J.ico",
@@ -265,6 +265,10 @@
       "label": "Spotify Settings",
       "type": "status"
     },
+    "SpotifyPremiumWarning": {
+      "label": "SPOTIFY PREMIUM REQUIRED TO USE THE SPOTIFY API",
+      "type": "status"
+    },
     "SpotifyEnabled": {
       "label": "Enable Spotify",
       "type": "toggle",
@@ -291,6 +295,11 @@
       "label": "Refresh Token",
       "type": "password",
       "fallback": "None"
+    },
+    "SpotifyNotifications": {
+      "label": "Enable Track Saved/Shuffle/Repeat notifications",
+      "type": "toggle",
+      "fallback": false
     },
     "SpotifyExpressStatus": {
       "label": "Express server status",

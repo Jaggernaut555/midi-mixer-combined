@@ -6,8 +6,10 @@ let clientId = "";
 let clientSecret = "";
 let accessToken = "";
 let refreshToken = "";
-var spotifyApi = new SpotifyWebApi();
+let notifications = false;
+const spotifyApi = new SpotifyWebApi();
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let settings: Record<string, any>;
 
 // Remember the last device spotify was using. Without this after like 15 seconds of spotify being paused you can no longer control it.
@@ -25,6 +27,8 @@ interface Response<T> {
   statusCode: number;
 }
 
+type RepeatState = "track" | "context" | "off";
+
 async function initVolume() {
   const volumeAssignment = new Assignment("VolumeAssignment", {
     name: "Spotify Volume",
@@ -35,10 +39,16 @@ async function initVolume() {
     updated = true;
     volumeAssignment.volume = level;
     if (!volumeAssignment.muted) {
-      await spotifyReq(async () => {
-        volumeAssignment.volume = level;
-        await spotifyApi.setVolume(Math.floor(level * 100), { device_id: recentDevice });
-      }, false, false);
+      await spotifyReq(
+        async () => {
+          volumeAssignment.volume = level;
+          await spotifyApi.setVolume(Math.floor(level * 100), {
+            device_id: recentDevice,
+          });
+        },
+        false,
+        false
+      );
     }
   });
 
@@ -46,33 +56,44 @@ async function initVolume() {
     updated = true;
     if (volumeAssignment.muted) {
       volumeAssignment.muted = false;
-      await spotifyReq(async () => {
-        let level = Math.floor(volumeAssignment.volume * 100)
-        await spotifyApi.setVolume(level, { device_id: recentDevice });
-        updated = true;
-      }, false, false);
-    }
-    else {
+      await spotifyReq(
+        async () => {
+          const level = Math.floor(volumeAssignment.volume * 100);
+          await spotifyApi.setVolume(level, { device_id: recentDevice });
+          updated = true;
+        },
+        false,
+        false
+      );
+    } else {
       volumeAssignment.muted = true;
-      await spotifyReq(async () => {
-        await spotifyApi.setVolume(0, { device_id: recentDevice });
-        updated = true;
-      }, false, false);
+      await spotifyReq(
+        async () => {
+          await spotifyApi.setVolume(0, { device_id: recentDevice });
+          updated = true;
+        },
+        false,
+        false
+      );
     }
   });
 
   const receiveVolume = (res: Response<SpotifyApi.CurrentPlaybackResponse>) => {
-    if (res && res.body && res.body.device && res.body.device.volume_percent !== null) {
-      let level = res.body.device.volume_percent / 100
+    if (
+      res &&
+      res.body &&
+      res.body.device &&
+      res.body.device.volume_percent !== null
+    ) {
+      const level = res.body.device.volume_percent / 100;
       if (level != 0) {
         volumeAssignment.muted = false;
         volumeAssignment.volume = level;
-      }
-      else if (!volumeAssignment.muted) {
+      } else if (!volumeAssignment.muted) {
         volumeAssignment.emit("mutePressed");
       }
     }
-  }
+  };
 
   await spotifyReq(async (res) => {
     receiveVolume(res);
@@ -89,16 +110,14 @@ async function initVolume() {
           return;
         }
         receiveVolume(res);
-      }
-      else {
+      } else {
         // There is no current or recently playing device
       }
     }, true);
   }, 1000);
 }
 
-function initButtons() {
-
+async function initButtons() {
   const playPauseButton = new ButtonType("PlayPauseButton", {
     name: "Spotify: Play/Pause Button",
     active: true,
@@ -108,8 +127,7 @@ function initButtons() {
     spotifyReq(async (res) => {
       if (res.body.is_playing) {
         await spotifyApi.pause({ device_id: recentDevice });
-      }
-      else {
+      } else {
         await spotifyApi.play({ device_id: recentDevice });
       }
     });
@@ -120,7 +138,7 @@ function initButtons() {
     active: true,
   });
   nextButton.on("pressed", async () => {
-    spotifyReq(async (res) => {
+    spotifyReq(async () => {
       await spotifyApi.skipToNext({ device_id: recentDevice });
     });
   });
@@ -133,8 +151,7 @@ function initButtons() {
     spotifyReq(async (res) => {
       if (res.body.progress_ms !== null && res.body.progress_ms < 3000) {
         await spotifyApi.skipToPrevious({ device_id: recentDevice });
-      }
-      else {
+      } else {
         await spotifyApi.seek(0);
       }
     });
@@ -150,13 +167,83 @@ function initButtons() {
         console.log("No valid item to add to saved tracks");
         return;
       }
-      await spotifyApi.addToMySavedTracks([res.body.item?.id]);
+      spotifyApi.addToMySavedTracks([res.body.item?.id]).then(() => {
+        notifyIfEnabled(`Track ${res.body.item?.name} saved to favourites`);
+      });
     });
+  });
+
+  //const tempState = await spotifyApi.getMyCurrentPlaybackState();
+
+  const shuffleButton = new ButtonType("ShuffleButton", {
+    name: "Spotify: Toggle Shuffle",
+    active: true,
+  });
+  shuffleButton.on("pressed", () => {
+    spotifyApi.getMyCurrentPlaybackState().then(
+      (res) => {
+        // Get whatever the real current shuffle state is and toggle it
+        shuffleButton.active = !res.body.shuffle_state;
+
+        spotifyApi.setShuffle(shuffleButton.active).then(
+          () => {
+            notifyIfEnabled(`Shuffle ${shuffleButton.active ? "On" : "Off"}`);
+          },
+          (err) => {
+            console.error("Could not toggle shuffle", err);
+            $MM.showNotification("Could not toggle shuffle");
+          }
+        );
+      },
+      (err) => {
+        console.error("Could not toggle shuffle", err);
+        $MM.showNotification("Could not toggle shuffle");
+      }
+    );
+  });
+
+  const repeatButton = new ButtonType("RepeatButton", {
+    name: "Spotify: Toggle Repeat ",
+    active: true,
+  });
+  repeatButton.on("pressed", () => {
+    spotifyApi.getMyCurrentPlaybackState().then(
+      (res) => {
+        const currentRepeat = res.body.repeat_state;
+        let newRepeat: RepeatState;
+
+        if (currentRepeat == "off") {
+          newRepeat = "context";
+        } else if (currentRepeat == "context") {
+          newRepeat = "track";
+        } else {
+          newRepeat = "off";
+        }
+
+        spotifyApi.setRepeat(newRepeat).then(
+          () => {
+            notifyIfEnabled(`Repeat set to ${newRepeat}`);
+          },
+          (err) => {
+            console.error("Could not toggle repeat", err);
+            $MM.showNotification("Could not toggle repeat");
+          }
+        );
+      },
+      (err) => {
+        console.error("Could not toggle repeat", err);
+        $MM.showNotification("Could not toggle repeat");
+      }
+    );
   });
 }
 
 // Wrapper function to handle access token expiry
-async function spotifyReq(f: (res: Response<SpotifyApi.CurrentPlaybackResponse>) => Promise<void>, skipCheck: boolean = false, getState: boolean = true) {
+async function spotifyReq(
+  f: (res: Response<SpotifyApi.CurrentPlaybackResponse>) => Promise<void>,
+  skipCheck = false,
+  getState = true
+) {
   if (!recentDevice && !skipCheck) {
     console.log(`No recent device to control`);
     return;
@@ -171,23 +258,27 @@ async function spotifyReq(f: (res: Response<SpotifyApi.CurrentPlaybackResponse>)
     }
     await f(res!);
     return;
-  }
-  catch (error: any) {
-    // Can't import error type WebapiRegularError but that's what this would be
-    if (error && error.body && error.body.error && error.body.error.status == 401) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // Can't import error type WebApiRegularError but that's what this would be
+    if (
+      error &&
+      error.body &&
+      error.body.error &&
+      error.body.error.status == 401
+    ) {
       await spotifyApi.refreshAccessToken().then(
         function (data) {
-          console.log('The access token has been refreshed!');
+          console.log("The access token has been refreshed!");
 
           // Save the access token so that it's used in future calls
           spotifyApi.setAccessToken(data.body.access_token);
         },
         function (err) {
-          console.log('Could not refresh access token', err);
+          console.log("Could not refresh access token", err);
         }
       );
-    }
-    else {
+    } else {
       log.error(error);
       return;
     }
@@ -200,10 +291,18 @@ async function spotifyReq(f: (res: Response<SpotifyApi.CurrentPlaybackResponse>)
       recentDevice = res.body?.device?.id ?? recentDevice;
     }
     await f(res!);
-  }
-  catch (error) {
+  } catch (error) {
     log.debug("Retrying failed");
     log.error(error);
+  }
+}
+
+async function notifyIfEnabled(text: string): Promise<void> {
+  settings = await $MM.getSettings();
+  notifications = settings["SpotifyNotifications"];
+  console.log(text);
+  if (notifications) {
+    $MM.showNotification(text);
   }
 }
 
@@ -216,13 +315,19 @@ export async function initSpotifyPlugin(): Promise<void> {
 
   if (!clientId || !clientSecret) {
     log.error("Cannot function without client ID or Secret");
-    $MM.showNotification("Cannot run spotify plugin without a ClientID or ClientSecret");
+    $MM.showNotification(
+      "Cannot run spotify plugin without a ClientID or ClientSecret"
+    );
     process.exit(1);
   }
 
   if (!accessToken || !refreshToken) {
-    log.error("Need an access and refresh token. Follow the instuctions on the Info page to log in.");
-    $MM.showNotification("Need an access and refresh token. Follow the instuctions on the Info page to log in.");
+    log.error(
+      "Need an access and refresh token. Follow the instructions on the Info page to log in."
+    );
+    $MM.showNotification(
+      "Need an access and refresh token. Follow the instructions on the Info page to log in."
+    );
     return;
   }
 
@@ -238,3 +343,5 @@ export async function initSpotifyPlugin(): Promise<void> {
 $MM.onSettingsButtonPress("SpotifyRunLogin", () => {
   initLoginServer();
 });
+
+initSpotifyPlugin();
