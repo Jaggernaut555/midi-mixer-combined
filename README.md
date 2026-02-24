@@ -15,4 +15,4 @@ Also included in the midi mixer plugin is an autohotkey script that can be used 
 [PushToTalk](https://github.com/Jaggernaut555/midi-mixer-push-to-talk)
 [Spotify](https://github.com/Jaggernaut555/midi-mixer-spotify/)
 [Hue](https://github.com/Jaggernaut555/plugin-hue)
-
+[Discord](https://github.com/midi-mixer/plugin-discord)

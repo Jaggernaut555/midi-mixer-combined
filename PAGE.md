@@ -17,3 +17,5 @@ Also included in is an AutoHotkey script that can be used to restart midi mixer.
 [Spotify](https://github.com/Jaggernaut555/midi-mixer-spotify/)
 
 [Hue](https://github.com/Jaggernaut555/plugin-hue)
+
+[Discord](https://github.com/midi-mixer/plugin-discord)

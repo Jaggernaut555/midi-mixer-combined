@@ -6,6 +6,7 @@ import { initPushToTalk } from "./PushToTalk";
 import { initSpotifyPlugin } from "./Spotify";
 import { initVoicemeeterPlugin } from "./Voicemeeter";
 import * as wavelink from "./WaveLink";
+import { initDiscordPlugin } from "./Discord";
 
 interface Settings {
   enableBrightness: boolean;
@@ -15,6 +16,7 @@ interface Settings {
   enablePushToTalk: boolean;
   enableSpotify: boolean;
   enableHue: boolean;
+  enableDiscord: boolean;
 }
 
 let settings: Settings;
@@ -33,6 +35,7 @@ async function init(): Promise<void> {
     enablePushToTalk: config["PushToTalkEnabled"] ?? false,
     enableSpotify: config["SpotifyEnabled"] ?? false,
     enableHue: config["HueEnabled"] ?? false,
+    enableDiscord: config["DiscordEnabled"] ?? false,
   };
 
   if (settings.enableBrightness) {
@@ -75,6 +78,12 @@ async function init(): Promise<void> {
     console.log("Initializing Hue plugin");
     initHuePlugin().then(() => {
       console.log("Running Hue plugin");
+    });
+  }
+  if (settings.enableDiscord) {
+    console.log("Initializing Discord plugin");
+    initDiscordPlugin().then(() => {
+      console.log("Running Discord plugin");
     });
   }
 }

@@ -3,7 +3,7 @@
   "id": "ca.jaggernaut.midi-mixer.combined",
   "name": "Combined",
   "type": "node",
-  "version": "1.3.7",
+  "version": "1.4.0",
   "author": "Jaggernaut",
   "main": "lib/index.js",
   "icon": "J.ico",
@@ -334,6 +334,39 @@
       "required": false,
       "type": "text",
       "fallback": "30"
+    },
+    "DiscordLabel": {
+      "label": "Discord Settings",
+      "type": "status"
+    },
+    "DiscordEnabled": {
+      "label": "Enable Discord",
+      "type": "toggle",
+      "fallback": false
+    },
+    "DiscordClientId": {
+      "label": "Client ID",
+      "required": true,
+      "type": "text"
+    },
+    "DiscordClientSecret": {
+      "label": "Client Secret",
+      "required": true,
+      "type": "password"
+    },
+    "DiscordPresence": {
+      "label": "Presence (populate to disable)",
+      "type": "text",
+      "fallback": "On"
+    },
+    "DiscordStatus": {
+      "label": "Status",
+      "type": "status",
+      "fallback": "Disconnected"
+    },
+    "DiscordReconnect": {
+      "label": "Reconnect",
+      "type": "button"
     }
   }
 }
